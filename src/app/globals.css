@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background: #0a0a0a;
+    --foreground: #ededed;
+  }
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --primary: 222.2 47.4% 11.2%;
+    --primary-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+    --radius: 0.5rem;
+  }
+}
+
+@layer utilities {
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+}
+
+.dayPicker .rdp-month_grid {
+  width: 100%;
+}
+
+.dayPicker .rdp-weekday{
+  font-size: 18px;
+  font-weight: 600;
+  color: black;
+}
+
+.rdp-outside{
+  opacity: 0.5;
+}
+
+.dayPicker .rdp-months{
+  width: 100%;
+  max-width: inherit;
+}
+
+.dayPicker .rdp-month{
+  width: 100%;
+}
+
+.dayPicker .rdp-weekday{
+  /* text-align: start; */
+  padding-left: 10px;
+}
+
+.dayPicker .rdp-day{
+  height: 60px;
+  color: black;
+}
+
+.dayPicker .rdp-month_caption{
+  display: none;
+}
+
+.rdp-selected .rdp-day_button{
+  border: none !important;
+  background: rgba(136, 136, 136, 0.10);
+  padding: 5px 10px;
+  border-radius: 5px;
+  color: black;
+}
+
+.carousel .control-prev.control-arrow::before {
+  border-right: 8px solid #292526 !important;
+  fill: #292526 !important;
+}
+
+.carousel .control-prev.control-arrow::after {
+  border-right: 8px solid #292526 !important;
+  fill: #292526 !important;
+}
+
+.carousel .control-next.control-arrow::before {
+  border-left: 8px solid #292526 !important;
+  fill: #292526 !important;
+}
+
+.carousel .control-next.control-arrow::after {
+  border-left: 8px solid #292526 !important;
+  fill: #292526 !important;
+}
+
+.carousel .slide {
+  padding-right: 6px; /* Adjust the padding between slides */
+}
+
+/* .rdp-day{
+  color: black;
+} */
