@@ -30,20 +30,26 @@ export function ServiceCard({ id, serviceName, priceAfter, priceBefore, selected
     }
   }
   return (
-    <div dir={locale === 'ar' ? 'rtl' : 'ltr'} className={cn(
-      "bg-white rounded-lg px-2 lg:px-6 py-4 space-y-4 border-4 border-white transition-all cursor-pointer",
-      selectedService === id && 'border-black'
-    )}
+    <div
+      dir={locale === "ar" ? "rtl" : "ltr"}
+      className={cn(
+        "bg-white rounded-lg px-2 lg:px-6 py-4 space-y-4 border-4 border-white transition-all cursor-pointer my-7",
+        selectedService === id && "border-black"
+      )}
       onClick={() => setSelectedService?.(id || 0)}
     >
       <div className="flex justify-between items-center">
         <h3 className="font-bold text-black">{t(serviceName)}</h3>
-        <button className={cn(
-          "flex gap-2 text-sm text-gray-600 border border-gray100 rounded-full px-3 py-2",
-          selectedServices.includes(id || 0) && 'bg-[rgba(0,00,0.99)] text-white'
-        )} onClick={handleSelectCard}>
-          {t(selectedServices.includes(id|| 0) ? 'Selected' : 'Select')}
-          {selectedServices.includes(id|| 0) &&
+        <button
+          className={cn(
+            "flex gap-2 text-sm text-gray-600 border border-gray100 rounded-full px-3 py-2",
+            selectedServices.includes(id || 0) &&
+              "bg-[rgba(0,00,0.99)] text-white"
+          )}
+          onClick={handleSelectCard}
+        >
+          {t(selectedServices.includes(id || 0) ? "Selected" : "Select")}
+          {selectedServices.includes(id || 0) && (
             <div className="relative overflow-hidden w-5 h-5">
               <Image
                 src={CheckedIcon}
@@ -51,40 +57,36 @@ export function ServiceCard({ id, serviceName, priceAfter, priceBefore, selected
                 fill
                 className="object-contain"
               />
-            </div>}
+            </div>
+          )}
         </button>
       </div>
       <div className="bg-zinc-900 rounded-lg p-4 flex flex-wrap items-center justify-between">
         <div className=" gap-1">
-          <div className="text-white text-lg md:text-xl font-bold">{priceAfter.toLocaleString()} <span className="text-white text-xs md:text-sm">{t('SAR')}</span></div>
+          <div className="text-white text-lg md:text-xl font-bold">
+            {priceAfter.toLocaleString()}{" "}
+            <span className="text-white text-xs md:text-sm">{t("SAR")}</span>
+          </div>
 
           <div className="text-white font-semibold text-sm ml-2 relative">
-            {priceBefore.toLocaleString()} <span className="text-xs">{t('SAR')}</span>
+            {priceBefore.toLocaleString()}{" "}
+            <span className="text-xs">{t("SAR")}</span>
             <div className="border-t-2 border-[#FF3B30] absolute top-[10px] -left-1 w-[95%]"></div>
           </div>
         </div>
         <div className="flex items-center gap-1">
-          <span className="text-xs text-white whitespace-nowrap">{t('Pay with')}</span>
+          <span className="text-xs text-white whitespace-nowrap">
+            {t("Pay with")}
+          </span>
           <div className="relative w-10 h-10 md:w-16 md:h-16">
-            <Image
-              src={Tabby}
-              alt="Tabby"
-              fill
-              className="object-contain"
-            />
+            <Image src={Tabby} alt="Tabby" fill className="object-contain" />
           </div>
           <div className="relative w-[60px] h-[60px] md:w-[100px] md:h-[100px]">
-            <Image
-              src={Tamara}
-              alt="Tamara"
-              fill
-              className="object-contain"
-            />
+            <Image src={Tamara} alt="Tamara" fill className="object-contain" />
           </div>
-
         </div>
       </div>
     </div>
-  )
+  );
 }
 
