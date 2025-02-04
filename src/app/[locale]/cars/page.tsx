@@ -71,7 +71,7 @@ export default function CarSelector() {
     <>
       <div className="hidden w-full h-screen overflow-hidden bg-white lg:flex flex-col">
         <h1 className="text-center font-bold text-[52px] py-3 text-black">
-          SELECT CAR TYPE
+          {t("SELECT CAR TYPE")}
         </h1>
 
         <div className="relative flex-1 mt-14">
@@ -88,7 +88,11 @@ export default function CarSelector() {
                       )}
                     />
                     {/* Car image */}
-                    <div className={`relative z-10 isolate w-[90%] h-full ml-10 ${index===0 && '-mt-10'}`}>
+                    <div
+                      className={`relative z-10 isolate w-[90%] h-full ml-10 ${
+                        index === 0 && "-mt-10"
+                      }`}
+                    >
                       <Image
                         src={car.image || "/placeholder.svg"}
                         alt={`${car.name} car type`}
@@ -106,7 +110,7 @@ export default function CarSelector() {
                             index === 0 ? "text-[#F2F2F2]" : "text-white"
                           )}
                         >
-                          {carTypes[selectedIndex].name}
+                          {t(carTypes[selectedIndex].name)}
                         </p>
                       </div>
                     </div>
@@ -119,12 +123,18 @@ export default function CarSelector() {
             <div
               className="absolute bottom-10 left-8 z-20 flex items-center gap-4 cursor-pointer"
               onClick={handleNavigate}
+              dir={locale === "ar" ? "rtl" : "ltr"}
             >
-              <div className="w-10 h-10 border-2 border-black rounded-lg flex items-center justify-center">
-                <ChevronRight className="w-5 h-5 text-black" />
+              <div className="w-10 h-10 border-2 border-black rounded-lg flex items-center justify-center ">
+                <ChevronRight
+                  className={cn(
+                    "w-5 h-5 text-black",
+                    locale === "ar" && "transform rotate-180"
+                  )}
+                />
               </div>
               <span className="text-[52px] font-medium text-black">
-                {carTypes[selectedIndex].name}
+                {t(carTypes[selectedIndex].name)}
               </span>
             </div>
           </div>
@@ -133,14 +143,14 @@ export default function CarSelector() {
             <Button
               onClick={scrollPrev}
               disabled={!prevBtnEnabled}
-              className="h-10 w-10 rounded-lg border-2 border-black p-0"
+              className="h-10 w-10 rounded-lg border-2 border-black p-0 "
             >
               <ChevronLeft className="w-5 h- text-black font-semibold" />
             </Button>
             <Button
               onClick={scrollNext}
               disabled={!nextBtnEnabled}
-              className="h-10 w-10 rounded-lg border-2 border-black p-0"
+              className="h-10 w-10 rounded-lg border-2 border-black p-0 "
             >
               <ChevronRight className="w-5 h- text-black font-bold" />
             </Button>
@@ -152,7 +162,10 @@ export default function CarSelector() {
         className="lg:hidden h-[100dvh] bg-white flex flex-col"
       >
         <header className="bg-zinc-900 text-white p-4 lg:rounded-lg w-full lg:w-[50%]">
-          <div dir={locale === 'ar' ? 'rtl' : 'ltr'} className="container mx-auto flex justify-between items-center">
+          <div
+            dir={locale === "ar" ? "rtl" : "ltr"}
+            className="container mx-auto flex justify-between items-center"
+          >
             <div className="flex items-center gap-7 px-5">
               <span className="font-bold text-lg">CUSTOM</span>
             </div>
@@ -168,14 +181,11 @@ export default function CarSelector() {
         <div className="flex-1 flex flex-col relative isolate">
           <div
             className={cn(
-              "absolute w-full bottom-0 -z-10 h-[56%]", locale === 'ar' && 'transform scale-x-[-1]'
+              "absolute w-full bottom-0 -z-10 h-[56%]",
+              locale === "ar" && "transform scale-x-[-1]"
             )}
           >
-            <Image
-              src={bgShadow}
-              alt=""
-              className="size-full"
-            />
+            <Image src={bgShadow} alt="" className="size-full" />
           </div>
           {carTypes.map((car, index) => (
             <div key={index} className="h-1/2">
@@ -190,7 +200,7 @@ export default function CarSelector() {
                 className="flex items-center gap-5 px-5"
                 onClick={handleNavigate}
               >
-                <div className="size-[48px] border-2 border-black rounded-lg flex items-center justify-center">
+                <div className="size-[48px] border-2 border-black rounded-lg flex items-center justify-center ">
                   <ChevronRight
                     className={cn(
                       "size-10 text-black",

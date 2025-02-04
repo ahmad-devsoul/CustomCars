@@ -114,22 +114,18 @@ body {
 }
 
 .carousel .control-dots .dot {
-  -webkit-transition: opacity .25s ease-in;
-  -moz-transition: opacity .25s ease-in;
-  -ms-transition: opacity .25s ease-in;
-  -o-transition: opacity .25s ease-in;
-  transition: opacity .25s ease-in;
-  opacity: .3;
-  filter: alpha(opacity = 30);
-  box-shadow: 1px 1px 2px #000000e6;
+  display: none !important;
  
-  border-radius: 50%;
-  width: 8px;
-  height: 8px;
-  cursor: pointer;
-  display: inline-block;
-  margin: 0 8px;
- 
+}
+
+.carousel-status{
+  display: none !important;
+}
+.clip-polygon-full {
+  clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 /* .rdp-day{
   color: black;
