@@ -1,18 +1,18 @@
-'use client'
-import { ServiceCard } from '@/components/booking/Card'
-import { NavMenu } from '@/components/booking/Sidebar'
-import { VehicleSelector } from '@/components/booking/VehicleSelector'
-import Image from 'next/image'
-import { useEffect, useMemo, useState } from 'react'
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
-import { useLocale, useTranslations } from 'next-intl'
-import { useSelector } from 'react-redux'
+'use client';
+import { ServiceCard } from '@/components/booking/Card';
+import { NavMenu } from '@/components/booking/Sidebar';
+import { VehicleSelector } from '@/components/booking/VehicleSelector';
+import Image from 'next/image';
+import { useEffect, useMemo, useState } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import { useSelector } from 'react-redux';
 
-import { RootState } from '@/store'
-import { useDispatch } from 'react-redux'
-import { setServiceType } from '@/store/slices/booking'
-import { services } from '@/libs/utils/constants'
+import { RootState } from '@/store';
+import { useDispatch } from 'react-redux';
+import { setServiceType } from '@/store/slices/booking';
+import { services } from '@/libs/utils/constants';
+import { Carousel } from '@/components/UI/Carousel';
+import { CarouselContent, CarouselItem } from '@/components/UI/Carousel';
 
 export default function Home() {
   // const [activeSlide, setActiveSlide] = useState(0);
@@ -60,59 +60,59 @@ export default function Home() {
   }, [carType, serviceType]);
 
   return (
-    <div className="size-full">
+    <div className='size-full'>
       {/* Main Content */}
-      <main className="lg:container lg:mx-auto pb-10 lg:py-6 w-full lg:h-screen overflow-hidden">
-        <div className="flex flex-col lg:flex-row items-start justify-between size-full">
+      <main className='lg:container lg:mx-auto pb-10 lg:py-6 w-full lg:h-screen overflow-hidden'>
+        <div className='flex flex-col lg:flex-row items-start justify-between size-full'>
           {/* Car Image */}
-          <div className="w-full">
-            <header className="bg-zinc-900 text-white p-4 lg:rounded-lg w-full lg:w-[50%]">
+          <div className='w-full'>
+            <header className='bg-zinc-900 text-white p-4 lg:rounded-lg w-full lg:w-[50%]'>
               <div
-                dir={locale === "ar" ? "rtl" : "ltr"}
-                className="container mx-auto flex justify-between items-center"
+                dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                className='container mx-auto flex justify-between items-center'
               >
-                <div className="flex items-center gap-7">
-                  <span className="font-bold text-lg">CUSTOM</span>
-                  <div className="flex gap-3">
+                <div className='flex items-center gap-7'>
+                  <span className='font-bold text-lg'>CUSTOM</span>
+                  <div className='flex gap-3'>
                     <VehicleSelector />
                   </div>
                 </div>
                 <NavMenu />
               </div>
             </header>
-            <div className="relative overflow-hidden lg:w-[95%] h-[200px] md:h-[400px] lg:h-[500px] mb-3 lg:mb-0">
+            <div className='relative overflow-hidden lg:w-[95%] h-[200px] md:h-[400px] lg:h-[500px] mb-3 lg:mb-0'>
               <Image
                 src={
                   services?.find((item) => item.id === selectedService)?.gif ||
-                  ""
+                  ''
                 }
-                alt="Car"
+                alt='Car'
                 fill
-                className="object-contain rounded-lg"
+                className='object-contain rounded-lg'
               />
             </div>
           </div>
 
           {/* Service Selection */}
-          <div className="space-y-6 w-full h-full lg:max-w-[35%] px-4 lg:px-0 flex flex-col">
+          <div className='space-y-6 w-full h-full lg:max-w-[35%] px-4 lg:px-0 flex flex-col'>
             {/* Tabs */}
             <div
-              dir={locale === "ar" ? "rtl" : "ltr"}
-              className="flex gap-4 border-b border-gray-200 bg-[rgba(0,00,0.99)] rounded-lg overflow-auto whitespace-nowrap w-[calc(100%-2px)] no-scrollbar"
+              dir={locale === 'ar' ? 'rtl' : 'ltr'}
+              className='flex gap-4 border-b border-gray-200 bg-[rgba(0,00,0.99)] rounded-lg overflow-auto whitespace-nowrap w-[calc(100%-2px)] no-scrollbar'
             >
               {[
-                "POLISHING",
-                "WINDOW FILM",
-                "PROTECTION FILM",
-                "NANO CERAMIC",
+                'POLISHING',
+                'WINDOW FILM',
+                'PROTECTION FILM',
+                'NANO CERAMIC',
               ].map((tab) => (
                 <button
                   key={tab}
                   className={`px-4 py-2 text-sm hover:bg-[rgba(104,104,104,0.50)] capitalize hover:text-white rounded-lg transition-all 
                     ${
                       tab === serviceType
-                        ? "text-white font-semibold bg-[rgba(104,104,104,0.50)]"
-                        : "text-gray200 hover:text-gray-700"
+                        ? 'text-white font-semibold bg-[rgba(104,104,104,0.50)]'
+                        : 'text-gray200 hover:text-gray-700'
                     }`}
                   onClick={() => handleSelectTab(tab)}
                 >
@@ -122,8 +122,8 @@ export default function Home() {
             </div>
 
             {/* Service Cards */}
-            <div className="hidden lg:block overflow-y-auto no-scrollbar lg:h-[calc(100vh-170px)] space-y-2 mb-16">
-              <div className="flex-1 gap-2 space-y-2">
+            <div className='hidden lg:block overflow-y-auto no-scrollbar lg:h-[calc(100vh-170px)] space-y-2 mb-16'>
+              <div className='flex-1 gap-2 space-y-2'>
                 {servicesData.map((service) => (
                   <ServiceCard
                     key={service.id}
@@ -134,16 +134,18 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="relative lg:hidden">
-              <Carousel
-                onChange={handleSlideChange}
-                showArrows={true}
-                centerMode={true} // Enables the "peek" effect
-                centerSlidePercentage={80}
-              >
-                {servicesData.map((service) => (
-                  <ServiceCard key={service.id} {...service} />
-                ))}
+            <div className='relative lg:hidden'>
+              <Carousel opts={{ direction: locale === 'ar' ? 'rtl' : 'ltr' }}>
+                <CarouselContent>
+                  {servicesData.map((service, index) => (
+                    <CarouselItem
+                      key={service.id}
+                      onClick={() => handleSlideChange(index)}
+                    >
+                      <ServiceCard {...service} />
+                    </CarouselItem>
+                  ))}
+                </CarouselContent>
               </Carousel>
             </div>
           </div>
@@ -152,4 +154,3 @@ export default function Home() {
     </div>
   );
 }
-
