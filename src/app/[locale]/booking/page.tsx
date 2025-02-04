@@ -3,7 +3,7 @@ import { ServiceCard } from '@/components/booking/Card';
 import { NavMenu } from '@/components/booking/Sidebar';
 import { VehicleSelector } from '@/components/booking/VehicleSelector';
 import Image from 'next/image';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState, useRef } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSelector } from 'react-redux';
 
@@ -15,6 +15,7 @@ import { Carousel } from '@/components/UI/Carousel';
 import { CarouselContent, CarouselItem } from '@/components/UI/Carousel';
 
 export default function Home() {
+  const mobileServicesRef = useRef<HTMLDivElement>(null);
   // const [activeSlide, setActiveSlide] = useState(0);
   const [selectedService, setSelectedService] = useState<number>(7);
   const serviceType = useSelector(
@@ -41,6 +42,16 @@ export default function Home() {
         service.serviceType.toUpperCase() === value.toUpperCase()
     );
     setSelectedService(tab[0]?.id);
+
+    // Reset scroll position when tab changes
+    if (mobileServicesRef.current) {
+      if (locale === 'ar') {
+        mobileServicesRef.current.scrollLeft =
+          mobileServicesRef.current.scrollWidth;
+      } else {
+        mobileServicesRef.current.scrollLeft = 0;
+      }
+    }
   };
 
   const handleSlideChange = (index: number) => {
@@ -134,19 +145,14 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className='relative lg:hidden'>
-              <Carousel opts={{ direction: locale === 'ar' ? 'rtl' : 'ltr' }}>
-                <CarouselContent>
-                  {servicesData.map((service, index) => (
-                    <CarouselItem
-                      key={service.id}
-                      onClick={() => handleSlideChange(index)}
-                    >
-                      <ServiceCard {...service} />
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
-              </Carousel>
+            <div
+              ref={mobileServicesRef}
+              dir={locale === 'ar' ? 'rtl' : 'ltr'}
+              className='flex flex-row gap-4 overflow-x-auto no-scrollbar lg:hidden'
+            >
+              {servicesData.map((service) => (
+                <ServiceCard key={service.id} {...service} />
+              ))}
             </div>
           </div>
         </div>
