@@ -23,9 +23,9 @@ export default function Slots() {
               <TimeSlots />
             </div>
           </div>
-          <div className="px-5 md:px-0 w-full md:w-[45%] mb-20 md:mb-0 hidden md:block">
+          {/* <div className="px-5 md:px-0 w-full md:w-[45%] mb-20 md:mb-0 hidden md:block">
             <OrderSummary />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

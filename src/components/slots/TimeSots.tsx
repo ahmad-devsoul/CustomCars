@@ -17,29 +17,29 @@ export function TimeSlots() {
     }
 
     return (
-        <div className="p-6 flex items-center w-full lg:w-[50%] justify-center bg-white border-t lg:border-l rounded-bl-lg rounded-br-lg lg:rounded-tr-lg lg:rounded-br-lg">
-            <div className="space-y-6">
-                <div className="space-y-3">
-                    <div className="flex flex-wrap items-center justify-center gap-4">
-                        {MORNING_SLOTS.map((time, i) => (
-                            <div key={i} className="whitespace-nowrap gap-2">
-                                <button
-                                    onClick={() => handleSelectTime(time)}
-                                    className={cn(
-                                        "py-2.5 px-4 text-sm rounded-lg border transition-colors",
-                                        slot?.time === time
-                                            ? "border-blue-600 bg-blue-50 text-blue-600"
-                                            : "border-gray-200 hover:border-gray-300 text-gray-700"
-                                    )}
-                                >
-                                    {t(time)}
-                                </button>
-                            </div>
-                        ))}
-                    </div>
+      <div className="p-3 lg:p-6 flex items-center w-full lg:w-[50%] justify-center bg-white border-t lg:border-l rounded-bl-lg rounded-br-lg lg:rounded-tr-lg lg:rounded-br-lg mb-20">
+        <div className="space-y-6">
+          <div className="space-y-3">
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              {MORNING_SLOTS.map((time, i) => (
+                <div key={i} className="whitespace-nowrap gap-2 ">
+                  <button
+                    onClick={() => handleSelectTime(time)}
+                    className={cn(
+                      "py-2.5 px-4 text-sm rounded-lg border transition-colors",
+                      slot?.time === time
+                        ? "border-blue-600 bg-blue-50 text-blue-600"
+                        : "border-gray-200 hover:border-gray-300 text-gray-700"
+                    )}
+                  >
+                    {t(time)}
+                  </button>
                 </div>
+              ))}
             </div>
+          </div>
         </div>
-    )
+      </div>
+    );
 }
 

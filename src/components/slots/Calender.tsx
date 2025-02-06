@@ -37,29 +37,32 @@ export function Calendar() {
   };
 
   return (
-    <div className="p-3 lg:p-6 bg-white w-full rounded-tl-lg rounded-tr-lg lg:rounded-tl-lg lg:rounded-bl-lg">
+    <div className="p-3 lg:p-6 bg-white w-full">
       <div className="flex items-center justify-between mb-4 w-full">
         <h2 className="text-[15px] text-gray-900 flex flex-col sm:flex-row items-start sm:items-center">
           <span className="font-semibold text-black500 text-xl">
-            {selectedMonthYear.toLocaleDateString('en-US', {
-              month: 'long',
-              year: 'numeric',
+            {selectedMonthYear.toLocaleDateString("en-US", {
+              month: "long",
+              year: "numeric",
             })}
           </span>
-          <span dir={locale === 'ar' ? 'rtl' : 'ltr'} className={cn(
-            "text-black500 text-sm font-semibold",
-            locale === 'ar' ? 'mr-2' : 'ml-2'
-            )}>
-            {new Date(slot.date).toLocaleDateString('en-US', {
-              weekday: 'short',
-              day: 'numeric',
-              month: 'long',
+          <span
+            dir={locale === "ar" ? "rtl" : "ltr"}
+            className={cn(
+              "text-black500 text-sm font-semibold",
+              locale === "ar" ? "mr-2" : "ml-2"
+            )}
+          >
+            {new Date(slot.date).toLocaleDateString("en-US", {
+              weekday: "short",
+              day: "numeric",
+              month: "long",
             })}
           </span>
         </h2>
       </div>
 
-      <div dir='rtl' className="relative dayPicker">
+      <div dir="rtl" className="relative dayPicker">
         <DayPicker
           mode="single"
           month={selectedMonthYear} // Sync the displayed month with the state
@@ -69,17 +72,19 @@ export function Calendar() {
           showOutsideDays
           classNames={{
             caption_label: "hidden",
-            nav: `space-x-1 flex items-center gap-3 absolute -top-10 ${locale === 'ar' ? 'left-0 flex flex-row-reverse' : 'right-0'}`,
+            nav: `space-x-1 flex items-center gap-3 absolute -top-10 ${
+              locale === "ar" ? "left-0 flex flex-row-reverse" : "right-0"
+            }`,
           }}
           components={{
             PreviousMonthButton: () => (
-              <button onClick={handlePreviousMonth}>
-                <ChevronLeft className="w-6 h-6 font-semibold text-[#888888] border border-gray100 rounded-full mr-3" />
+              <button onClick={handleNextMonth}>
+                <ChevronRight className="w-6 h-6 font-semibold text-[#888888] border border-gray100 rounded-full mr-3" />
               </button>
             ),
             NextMonthButton: () => (
-              <button onClick={handleNextMonth}>
-                <ChevronRight className="w-6 h-6 font-semibold text-[#888888] border border-gray100 rounded-full" />
+              <button onClick={handlePreviousMonth}>
+                <ChevronLeft className="w-6 h-6 font-semibold text-[#888888] border border-gray100 rounded-full" />
               </button>
             ),
           }}

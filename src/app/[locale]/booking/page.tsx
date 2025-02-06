@@ -13,6 +13,8 @@ import { RootState } from '@/store'
 import { useDispatch } from 'react-redux'
 import { setServiceType } from '@/store/slices/booking'
 import { services } from '@/libs/utils/constants'
+import { Calendar } from "@/components/slots/Calender";
+import { TimeSlots } from "@/components/slots/TimeSots";
 
 export default function Home() {
   // const [activeSlide, setActiveSlide] = useState(0);
@@ -60,9 +62,9 @@ export default function Home() {
   }, [carType, serviceType]);
 
   return (
-    <div className="size-full">
+    <div className="size-full flex flex-col justify-start items-center w-full h-full overflow-y-scroll">
       {/* Main Content */}
-      <main className="lg:container lg:mx-auto pb-10 lg:py-6 w-full lg:h-screen overflow-hidden">
+      <div className="flex h-full pt-14 w-full px-12">
         <div className="flex flex-col lg:flex-row items-start justify-between size-full">
           {/* Car Image */}
           <div className="w-full">
@@ -80,7 +82,7 @@ export default function Home() {
                 <NavMenu />
               </div>
             </header>
-            <div className="relative overflow-hidden lg:w-[95%] h-[200px] md:h-[400px] lg:h-[500px] mb-3 lg:mb-0">
+            <div className="relative overflow-hidden lg:w-[95%] h-[200px] md:h-[400px] lg:h-auto lg:min-h-[600px] mb-3 lg:mb-0 flex justify-center items-center">
               <Image
                 src={
                   services?.find((item) => item.id === selectedService)?.gif ||
@@ -98,7 +100,7 @@ export default function Home() {
             {/* Tabs */}
             <div
               dir={locale === "ar" ? "rtl" : "ltr"}
-              className="flex gap-4 border-b border-gray-200 bg-[rgba(0,00,0.99)] rounded-lg overflow-auto whitespace-nowrap w-[calc(100%-2px)] no-scrollbar"
+              className="flex gap-4 justify-between min-h-[72px] border-b border-gray-200 bg-[rgba(0,00,0.99)] rounded-lg overflow-auto whitespace-nowrap w-[calc(100%-2px)] no-scrollbar"
             >
               {[
                 "POLISHING",
@@ -108,10 +110,10 @@ export default function Home() {
               ].map((tab) => (
                 <button
                   key={tab}
-                  className={`px-4 py-2 text-sm hover:bg-[rgba(104,104,104,0.50)] capitalize hover:text-white rounded-lg transition-all 
+                  className={`px-4 py-2 text-sm hover:bg-[rgba(104,104,104,0.50)] capitalize text-white hover:text-white rounded-lg transition-all 
                     ${
                       tab === serviceType
-                        ? "text-white font-semibold bg-[rgba(104,104,104,0.50)]"
+                        ? "text-white font-semibold bg-[rgba(104,104,104,0.50)] px-5"
                         : "text-gray200 hover:text-gray-700"
                     }`}
                   onClick={() => handleSelectTab(tab)}
@@ -148,7 +150,19 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </main>
+      </div>
+      <div
+        dir={locale === "ar" ? "rtl" : "ltr"}
+        className="w-full px-5 md:px-10 h-auto min-h-min pb-40"
+      >
+        <h1 className="px-1 py-3 lg:py-5 font-semibold text-2xl text-black">
+          {t("Select Date and Time")}
+        </h1>
+        <div className="flex flex-col lg:flex-row w-full bg-white rounded-lg">
+          <Calendar />
+          <TimeSlots />
+        </div>
+      </div>
     </div>
   );
 }
