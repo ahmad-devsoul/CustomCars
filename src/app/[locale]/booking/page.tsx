@@ -1,22 +1,20 @@
-'use client'
-import { ServiceCard } from '@/components/booking/Card'
-import { NavMenu } from '@/components/booking/Sidebar'
-import { VehicleSelector } from '@/components/booking/VehicleSelector'
-import Image from 'next/image'
-import { useEffect, useMemo, useState } from 'react'
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
-import { Carousel } from 'react-responsive-carousel';
-import { useLocale, useTranslations } from 'next-intl'
-import { useSelector } from 'react-redux'
-
-import { RootState } from '@/store'
-import { useDispatch } from 'react-redux'
-import { setServiceType } from '@/store/slices/booking'
-import { services } from '@/libs/utils/constants'
+"use client";
+import { ServiceCard } from "@/components/booking/Card";
+import { NavMenu } from "@/components/booking/Sidebar";
+import { VehicleSelector } from "@/components/booking/VehicleSelector";
+import Image from "next/image";
+import { useEffect, useMemo, useState, useRef } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { useSelector } from "react-redux";
 import { Calendar } from "@/components/slots/Calender";
 import { TimeSlots } from "@/components/slots/TimeSots";
+import { RootState } from "@/store";
+import { useDispatch } from "react-redux";
+import { setServiceType } from "@/store/slices/booking";
+import { services } from "@/libs/utils/constants";
 
 export default function Home() {
+  const mobileServicesRef = useRef<HTMLDivElement>(null);
   // const [activeSlide, setActiveSlide] = useState(0);
   const [selectedService, setSelectedService] = useState<number>(7);
   const serviceType = useSelector(
@@ -43,6 +41,16 @@ export default function Home() {
         service.serviceType.toUpperCase() === value.toUpperCase()
     );
     setSelectedService(tab[0]?.id);
+
+    // Reset scroll position when tab changes
+    if (mobileServicesRef.current) {
+      if (locale === "ar") {
+        mobileServicesRef.current.scrollLeft =
+          mobileServicesRef.current.scrollWidth;
+      } else {
+        mobileServicesRef.current.scrollLeft = 0;
+      }
+    }
   };
 
   const handleSlideChange = (index: number) => {
@@ -136,17 +144,14 @@ export default function Home() {
                 ))}
               </div>
             </div>
-            <div className="relative lg:hidden">
-              <Carousel
-                onChange={handleSlideChange}
-                showArrows={true}
-                centerMode={true} // Enables the "peek" effect
-                centerSlidePercentage={80}
-              >
-                {servicesData.map((service) => (
-                  <ServiceCard key={service.id} {...service} />
-                ))}
-              </Carousel>
+            <div
+              ref={mobileServicesRef}
+              dir={locale === "ar" ? "rtl" : "ltr"}
+              className="flex flex-row gap-4 overflow-x-auto no-scrollbar lg:hidden"
+            >
+              {servicesData.map((service) => (
+                <ServiceCard key={service.id} {...service} />
+              ))}
             </div>
           </div>
         </div>
@@ -166,4 +171,3 @@ export default function Home() {
     </div>
   );
 }
-

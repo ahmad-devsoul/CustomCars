@@ -1,20 +1,22 @@
-'use client'
+"use client";
 
-import { DayPicker } from 'react-day-picker';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { useState } from 'react';
-import 'react-day-picker/style.css';
-import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '@/store';
-import { setSlot } from '@/store/slices/booking';
-import { useLocale } from 'next-intl';
-import { cn } from '@/libs/utils';
+import { DayPicker } from "react-day-picker";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import "react-day-picker/style.css";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { setSlot } from "@/store/slices/booking";
+import { useLocale } from "next-intl";
+import { cn } from "@/libs/utils";
 
 export function Calendar() {
-  const locale=useLocale()
+  const locale = useLocale();
   const [selectedMonthYear, setSelectedMonthYear] = useState<Date>(new Date());
   const { slot } = useSelector((state: RootState) => state.booking);
   const dispatch = useDispatch();
+
+  const disabledDays = { before: new Date() };
 
   const handlePreviousMonth = () => {
     const previousMonth = new Date(
@@ -37,7 +39,7 @@ export function Calendar() {
   };
 
   return (
-    <div className="p-3 lg:p-6 bg-white w-full">
+    <div className="p-3 lg:p-6 bg-white w-full rounded-tl-lg rounded-tr-lg lg:rounded-tl-lg lg:rounded-bl-lg">
       <div className="flex items-center justify-between mb-4 w-full">
         <h2 className="text-[15px] text-gray-900 flex flex-col sm:flex-row items-start sm:items-center">
           <span className="font-semibold text-black500 text-xl">
@@ -69,6 +71,7 @@ export function Calendar() {
           selected={new Date(slot.date)} // Convert back to Date
           onSelect={(date) => date && handleSelectDate(date)}
           onMonthChange={(date) => date && setSelectedMonthYear(date)}
+          disabled={disabledDays}
           showOutsideDays
           classNames={{
             caption_label: "hidden",
