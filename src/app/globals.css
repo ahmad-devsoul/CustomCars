@@ -67,10 +67,7 @@ body {
   width: 100%;
 }
 
-.dayPicker .rdp-weekday{
-  /* text-align: start; */
-  padding-left: 10px;
-}
+
 
 .dayPicker .rdp-day{
   height: 60px;
@@ -127,6 +124,17 @@ body {
   justify-content: center;
   align-items: center;
 }
+.dayPicker .rdp-weekday {
+  padding-left: 10px; /* Default for smaller screens */
+}
+
+@media (min-width: 1024px) { /* lg screens (1024px and above) */
+  .dayPicker .rdp-weekday {
+    padding-left: 100px;
+  }
+}
+
+
 /* .rdp-day{
   color: black;
 } */

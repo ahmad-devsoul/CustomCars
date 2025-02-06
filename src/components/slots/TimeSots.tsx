@@ -17,12 +17,12 @@ export function TimeSlots() {
     }
 
     return (
-      <div className="p-3 lg:p-6 flex items-center w-full lg:w-[50%] justify-center bg-white border-t lg:border-l rounded-bl-lg rounded-br-lg lg:rounded-tr-lg lg:rounded-br-lg mb-20">
+      <div className="p-4 lg:p-6 flex items-center w-full lg:w-[50%] justify-center border-t rounded-bl-lg rounded-br-lg lg:rounded-tr-lg lg:rounded-br-lg ">
         <div className="space-y-6">
           <div className="space-y-3">
-            <div className="flex flex-wrap items-center justify-center gap-4">
+            <div className="grid grid-cols-3 lg:grid-cols-2 gap-4 justify-items-center">
               {MORNING_SLOTS.map((time, i) => (
-                <div key={i} className="whitespace-nowrap gap-2 ">
+                <div key={i} className="whitespace-nowrap">
                   <button
                     onClick={() => handleSelectTime(time)}
                     className={cn(

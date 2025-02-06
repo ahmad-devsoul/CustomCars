@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Footer } from "@/components/booking/Footer";
+import { ScrollProvider } from "@/context/ScrollContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -12,9 +13,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className="min-h-screen bg-gray-100">
-      {children}
-      <Footer />
-    </div>
+    <ScrollProvider>
+      <div className="min-h-screen bg-gray-100">
+        {children}
+        <Footer />
+      </div>
+    </ScrollProvider>
   );
 }
+
