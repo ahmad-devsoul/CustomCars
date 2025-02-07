@@ -5,17 +5,18 @@ import {
   CalendarDays,
   ChevronLeft,
   CreditCard,
-} from 'lucide-react';
-import { Button } from '@/components/UI/Button';
-import { usePathname, useRouter } from 'next/navigation';
-import { cn } from '@/libs/utils';
-import { useSelector } from 'react-redux';
-import { RootState } from '@/store';
-import { services } from '@/libs/utils/constants';
-import { useMemo } from 'react';
-import { useLocale, useTranslations } from 'next-intl';
-import { useCreateBookingMutation } from '@/store/services/branches';
-import { toast } from 'react-toastify';
+  ShoppingCart,
+} from "lucide-react";
+import { Button } from "@/components/UI/Button";
+import { usePathname, useRouter } from "next/navigation";
+import { cn } from "@/libs/utils";
+import { useSelector } from "react-redux";
+import { RootState } from "@/store";
+import { services } from "@/libs/utils/constants";
+import { useMemo } from "react";
+import { useLocale, useTranslations } from "next-intl";
+import { useCreateBookingMutation } from "@/store/services/branches";
+import { toast } from "react-toastify";
 import { useScroll } from "@/context/ScrollContext";
 
 export function Footer() {
@@ -69,6 +70,11 @@ export function Footer() {
         return acc + curr?.priceAfter;
       }, 0);
   }, [selectedServices]);
+
+  console.log("selectedServicesselectedServices", selectedServices.length);
+  console.log("selectedServicesselectedServices", slot);
+  console.log("selectedServicesselectedServices", selectedServices.length);
+  console.log("selectedServicesselectedServices", selectedServices.length);
 
   return (
     <div
@@ -146,21 +152,37 @@ export function Footer() {
               <span className="font-semibold">{totalPrice}</span> {t("SAR")}
             </span>
           ) : null}
-          <Button
-            dir={locale === "ar" ? "rtl" : "ltr"}
-            onClick={handleNext}
-            disabled={!totalPrice}
-            className={cn(
-              "bg-transparent text-black hover:bg-transparent hover:text-black font-bold text-sm flex gap-1 lg:bg-black lg:text-white lg:hover:bg-black lg:hover:text-white",
-              pathname.includes("/booking/payment") &&
-                "bg-black text-white hover:bg-black hover:text-white"
-            )}
-          >
-            {pathname.includes("/booking/payment")
-              ? t("Confirm Booking")
-              : t("NEXT")}
-            <ArrowDownToLine className="ml-2 h-4 w-4" />
-          </Button>
+          {selectedServices.length > 0 ? (
+            <div className="relative">
+              <div className="bg-red-700 absolute h-5 w-5 -right-2 -top-3 rounded-full flex items-center justify-center">
+                <span className=" ext-sm font-medium">
+                  {selectedServices.length}
+                </span>
+              </div>
+
+              <ShoppingCart color="black" size={30} />
+            </div>
+          ) : null}
+
+          {selectedServices &&
+          slot &&
+          carType &&
+          serviceType &&
+          paymentDetails ? (
+            <Button
+              dir={locale === "ar" ? "rtl" : "ltr"}
+              onClick={handleNext}
+              disabled={!totalPrice}
+              className={cn(
+                "bg-transparent text-black hover:bg-transparent hover:text-black font-bold text-sm flex gap-1 lg:bg-black lg:text-white lg:hover:bg-black lg:hover:text-white",
+                pathname.includes("/booking/payment") &&
+                  "bg-black text-white hover:bg-black hover:text-white"
+              )}
+            >
+              {pathname.includes("/booking") ? t("Confirm Booking") : t("NEXT")}
+              <ArrowDownToLine className="ml-2 h-4 w-4" />
+            </Button>
+          ) : null}
         </div>
       </div>
     </div>
