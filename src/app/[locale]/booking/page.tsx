@@ -1,23 +1,23 @@
-"use client";
-import { ServiceCard } from "@/components/booking/Card";
-import { NavMenu } from "@/components/booking/Sidebar";
-import { VehicleSelector } from "@/components/booking/VehicleSelector";
-import Image from "next/image";
-import { useEffect, useMemo, useState, useRef } from "react";
-import { useLocale, useTranslations } from "next-intl";
-import { useSelector } from "react-redux";
-import { Calendar } from "@/components/slots/Calender";
-import { TimeSlots } from "@/components/slots/TimeSots";
-import { RootState } from "@/store";
-import { useDispatch } from "react-redux";
-import { setServiceType } from "@/store/slices/booking";
-import { services } from "@/libs/utils/constants";
+'use client';
+import { ServiceCard } from '@/components/booking/Card';
+import { NavMenu } from '@/components/booking/Sidebar';
+import { VehicleSelector } from '@/components/booking/VehicleSelector';
+import Image from 'next/image';
+import { useEffect, useMemo, useState, useRef } from 'react';
+import { useLocale, useTranslations } from 'next-intl';
+import { useSelector } from 'react-redux';
+import { Calendar } from '@/components/slots/Calender';
+import { TimeSlots } from '@/components/slots/TimeSots';
+import { RootState } from '@/store';
+import { useDispatch } from 'react-redux';
+import { setServiceType } from '@/store/slices/booking';
+import { services } from '@/libs/utils/constants';
 
-import Payment from "@/components/payment/Payment";
-import { OrderSummary } from "@/components/slots/OrderSummary";
-import { Input } from "@/components/UI/Input";
-import { cn } from "@/libs/utils";
-import { setPaymentDetails } from "@/store/slices/booking";
+import Payment from '@/components/payment/Payment';
+import { OrderSummary } from '@/components/slots/OrderSummary';
+import { Input } from '@/components/UI/Input';
+import { cn } from '@/libs/utils';
+import { setPaymentDetails } from '@/store/slices/booking';
 
 export default function Home() {
   const mobileServicesRef = useRef<HTMLDivElement>(null);
@@ -50,7 +50,7 @@ export default function Home() {
 
     // Reset scroll position when tab changes
     if (mobileServicesRef.current) {
-      if (locale === "ar") {
+      if (locale === 'ar') {
         mobileServicesRef.current.scrollLeft =
           mobileServicesRef.current.scrollWidth;
       } else {
@@ -84,59 +84,59 @@ export default function Home() {
   };
 
   return (
-    <div className="size-full flex flex-col justify-start items-center w-full h-full overflow-y-scroll">
+    <div className='size-full flex flex-col justify-start items-center w-full h-full overflow-y-scroll'>
       {/* Main Content */}
-      <div className="flex h-full pt-14 w-full px-12">
-        <div className="flex flex-col lg:flex-row items-start justify-between size-full">
+      <div id='booking' className='flex h-full md:pt-14 w-full md:px-12'>
+        <div className='flex flex-col lg:flex-row items-start justify-between size-full'>
           {/* Car Image */}
-          <div className="w-full">
-            <header className="bg-zinc-900 text-white p-4 lg:rounded-lg w-full lg:w-[50%]">
+          <div className='w-full'>
+            <header className='bg-zinc-900 text-white p-4 lg:rounded-lg w-full lg:w-[50%]'>
               <div
-                dir={locale === "ar" ? "rtl" : "ltr"}
-                className="container mx-auto flex justify-between items-center"
+                dir={locale === 'ar' ? 'rtl' : 'ltr'}
+                className='container mx-auto flex justify-between items-center'
               >
-                <div className="flex items-center gap-7">
-                  <span className="font-bold text-lg">CUSTOM</span>
-                  <div className="flex gap-3">
+                <div className='flex items-center gap-7'>
+                  <span className='font-bold text-lg'>CUSTOM</span>
+                  <div className='flex gap-3'>
                     <VehicleSelector />
                   </div>
                 </div>
                 <NavMenu />
               </div>
             </header>
-            <div className="relative overflow-hidden lg:w-[95%] h-[200px] md:h-[400px] lg:h-auto lg:min-h-[600px] mb-3 lg:mb-0 flex justify-center items-center">
+            <div className='relative overflow-hidden lg:w-[95%] h-[200px] md:h-[400px] lg:h-auto lg:min-h-[600px] mb-3 lg:mb-0 flex justify-center items-center'>
               <Image
                 src={
                   services?.find((item) => item.id === selectedService)?.gif ||
-                  ""
+                  ''
                 }
-                alt="Car"
+                alt='Car'
                 fill
-                className="object-contain rounded-lg"
+                className='object-contain rounded-lg'
               />
             </div>
           </div>
 
           {/* Service Selection */}
-          <div className="space-y-6 w-full h-full lg:max-w-[35%] px-4 lg:px-0 flex flex-col">
+          <div className='space-y-6 w-full h-full lg:max-w-[35%] px-4 lg:px-0 flex flex-col'>
             {/* Tabs */}
             <div
-              dir={locale === "ar" ? "rtl" : "ltr"}
-              className="flex gap-4 justify-between min-h-[72px] border-b border-gray-200 bg-[rgba(0,00,0.99)] rounded-lg overflow-auto whitespace-nowrap w-[calc(100%-2px)] no-scrollbar"
+              dir={locale === 'ar' ? 'rtl' : 'ltr'}
+              className='flex gap-4 justify-between min-h-[60px] md:min-h-[72px] border-b border-gray-200 bg-[rgba(0,00,0.99)] rounded-lg overflow-auto whitespace-nowrap w-[calc(100%-2px)] no-scrollbar'
             >
               {[
-                "POLISHING",
-                "WINDOW FILM",
-                "PROTECTION FILM",
-                "NANO CERAMIC",
+                'POLISHING',
+                'WINDOW FILM',
+                'PROTECTION FILM',
+                'NANO CERAMIC',
               ].map((tab) => (
                 <button
                   key={tab}
                   className={`px-4 py-2 text-sm hover:bg-[rgba(104,104,104,0.50)] capitalize text-white hover:text-white rounded-lg transition-all 
                     ${
                       tab === serviceType
-                        ? "text-white font-semibold bg-[rgba(104,104,104,0.50)] px-5"
-                        : "text-gray200 hover:text-gray-700"
+                        ? 'text-white font-semibold bg-[rgba(104,104,104,0.50)] px-5'
+                        : 'text-gray200 hover:text-gray-700'
                     }`}
                   onClick={() => handleSelectTab(tab)}
                 >
@@ -146,8 +146,8 @@ export default function Home() {
             </div>
 
             {/* Service Cards */}
-            <div className="hidden lg:block overflow-y-auto no-scrollbar lg:h-[calc(100vh-170px)] space-y-2 mb-16">
-              <div className="flex-1 gap-2 space-y-2">
+            <div className='hidden lg:block overflow-y-auto no-scrollbar lg:h-[calc(100vh-170px)] space-y-2 mb-16'>
+              <div className='flex-1 gap-2 space-y-2'>
                 {servicesData.map((service) => (
                   <ServiceCard
                     key={service.id}
@@ -160,8 +160,8 @@ export default function Home() {
             </div>
             <div
               ref={mobileServicesRef}
-              dir={locale === "ar" ? "rtl" : "ltr"}
-              className="flex flex-row gap-4 overflow-x-auto no-scrollbar lg:hidden"
+              dir={locale === 'ar' ? 'rtl' : 'ltr'}
+              className='flex flex-row gap-4 overflow-x-auto no-scrollbar lg:hidden'
             >
               {servicesData.map((service) => (
                 <ServiceCard key={service.id} {...service} />
@@ -171,49 +171,53 @@ export default function Home() {
         </div>
       </div>
       <div
-        dir={locale === "ar" ? "rtl" : "ltr"}
-        className="w-full px-5 md:px-10 h-auto min-h-min pb-40"
+        id='slot'
+        dir={locale === 'ar' ? 'rtl' : 'ltr'}
+        className='w-full px-5 md:px-10 h-auto min-h-min pt-10 md:pt-0 pb-10 md:pb-40'
       >
-        <h1 className="px-1 py-3 lg:py-5 font-semibold text-2xl text-black">
-          {t("Select Date and Time")}
+        <h1 className='px-1 py-3 lg:py-5 font-semibold text-2xl text-black'>
+          {t('Select Date and Time')}
         </h1>
-        <div className="flex flex-col lg:flex-row w-full bg-white rounded-lg">
+        <div className='flex flex-col lg:flex-row w-full bg-white rounded-lg'>
           <Calendar />
           <TimeSlots />
         </div>
       </div>
-      <div className="size-full grid grid-cols-1 md:grid-cols-12 md:max-h-screen md:overflow-hidden">
-        <div className="space-y-6 pt-8 px-4 md:px-10 md:col-span-8">
+      <div
+        id='payment'
+        className='size-full grid grid-cols-1 md:grid-cols-12 md:max-h-screen md:overflow-hidden pb-10 md:pb-0'
+      >
+        <div className='space-y-6 pt-8 px-4 md:px-10 md:col-span-8'>
           <h2
             className={`text-lg font-semibold text-black ${
-              locale === "ar" ? "text-right" : ""
+              locale === 'ar' ? 'text-right' : ''
             }`}
           >
-            {t("Enter Your Data")}
+            {t('Enter Your Data')}
           </h2>
-          <div className="space-y-4">
+          <div className='space-y-4'>
             <div>
               <Input
-                type="text"
-                placeholder={t("Full Name")}
+                type='text'
+                placeholder={t('Full Name')}
                 className={cn(
-                  "w-full bg-white",
-                  locale === "ar" && "text-right"
+                  'w-full bg-white',
+                  locale === 'ar' && 'text-right'
                 )}
                 value={paymentDetails.name}
-                onChange={(e) => handleChange(e, "name")}
+                onChange={(e) => handleChange(e, 'name')}
               />
             </div>
-            <div className="flex gap-4">
+            <div className='flex gap-4'>
               <Input
-                type="tel"
-                placeholder={t("Phone Number")}
+                type='tel'
+                placeholder={t('Phone Number')}
                 className={cn(
-                  "w-full bg-white",
-                  locale === "ar" && "text-right"
+                  'w-full bg-white',
+                  locale === 'ar' && 'text-right'
                 )}
                 value={paymentDetails.phone}
-                onChange={(e) => handleChange(e, "phone")}
+                onChange={(e) => handleChange(e, 'phone')}
               />
               {/* <Button 
               className="bg-black text-white hover:bg-black/90 text-xs px-4"
@@ -233,10 +237,10 @@ export default function Home() {
           </div> */}
           </div>
         </div>
-        <div className="w-full md:col-span-4 md:row-span-3 px-4">
+        <div className='w-full md:col-span-4 md:row-span-3 px-4'>
           <OrderSummary />
         </div>
-        <div className="md:col-span-8 md:px-4 mb-20 md:mb-0">
+        <div className='md:col-span-8 md:px-4 mb-20 md:mb-0'>
           <Payment />
         </div>
       </div>

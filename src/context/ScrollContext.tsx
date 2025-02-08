@@ -1,25 +1,23 @@
-"use client";
-import { createContext, useContext, useRef, ReactNode } from "react";
+'use client';
+import { createContext, useContext, ReactNode } from 'react';
 
 // Create the context
-const ScrollContext = createContext<{ scrollToTop: () => void } | null>(null);
+const ScrollContext = createContext<{
+  scrollToSection: (section: 'booking' | 'slot' | 'payment') => void;
+} | null>(null);
 
 // Provider component
 export const ScrollProvider = ({ children }: { children: ReactNode }) => {
-  const bookingPageRef = useRef<HTMLDivElement>(null);
-
-  const scrollToTop = () => {
-    if (bookingPageRef.current) {
-      bookingPageRef.current.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
+  const scrollToSection = (section: 'booking' | 'slot' | 'payment') => {
+    const sectionElement = document.getElementById(section);
+    if (sectionElement) {
+      sectionElement.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <ScrollContext.Provider value={{ scrollToTop }}>
-      <div ref={bookingPageRef}>{children}</div>
+    <ScrollContext.Provider value={{ scrollToSection }}>
+      {children}
     </ScrollContext.Provider>
   );
 };
@@ -28,7 +26,7 @@ export const ScrollProvider = ({ children }: { children: ReactNode }) => {
 export const useScroll = () => {
   const context = useContext(ScrollContext);
   if (!context) {
-    throw new Error("useScroll must be used within a ScrollProvider");
+    throw new Error('useScroll must be used within a ScrollProvider');
   }
   return context;
 };

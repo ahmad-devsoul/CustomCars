@@ -42,7 +42,7 @@ export function ServiceCard({
     <div
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
       className={cn(
-        'bg-white rounded-lg px-2 lg:px-6 py-4 space-y-4 border-4 border-white transition-all cursor-pointer my-7 min-w-[80vw] lg:min-w-min',
+        'bg-white rounded-lg px-2 lg:px-6 py-6 md:py-4 space-y-4 border-4 border-white transition-all cursor-pointer my-7 min-w-[80vw] lg:min-w-min',
         selectedService === id && 'border-black'
       )}
       onClick={() => setSelectedService?.(id || 0)}
