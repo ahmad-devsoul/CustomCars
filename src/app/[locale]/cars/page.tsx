@@ -4,7 +4,7 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import useEmblaCarousel from 'embla-carousel-react';
 import { Button } from '@/components/UI/Button';
-import { bgShadow, SedanImg, SUVImg } from '@/assets';
+import { bgShadow, SedanImg, SUVImg, RightIcon, LeftIcon } from '@/assets';
 import Image, { StaticImageData } from 'next/image';
 import { useRouter } from 'next/navigation';
 import { setCarType } from '@/store/slices/booking';
@@ -126,10 +126,12 @@ export default function CarSelector() {
               onClick={() => handleNavigate()}
               dir={locale === 'ar' ? 'rtl' : 'ltr'}
             >
-              <div className='w-10 h-10 border-2 border-black rounded-lg flex items-center justify-center '>
-                <ChevronRight
+              <div className='flex items-center justify-center'>
+                <Image
+                  src={RightIcon}
+                  alt='Select'
                   className={cn(
-                    'w-5 h-5 text-black',
+                    'w-12 h-12',
                     locale === 'ar' && 'transform rotate-180'
                   )}
                 />
@@ -144,16 +146,16 @@ export default function CarSelector() {
             <Button
               onClick={scrollPrev}
               disabled={!prevBtnEnabled}
-              className='h-10 w-10 rounded-lg border-2 border-black p-0 '
+              className='h-12 w-12 p-0'
             >
-              <ChevronLeft className='w-5 h- text-black font-semibold' />
+              <Image src={LeftIcon} alt='Previous' className='w-12 h-12' />
             </Button>
             <Button
               onClick={scrollNext}
               disabled={!nextBtnEnabled}
-              className='h-10 w-10 rounded-lg border-2 border-black p-0 '
+              className='h-12 w-12 p-0'
             >
-              <ChevronRight className='w-5 h- text-black font-bold' />
+              <Image src={RightIcon} alt='Next' className='w-12 h-12' />
             </Button>
           </div>
         </div>
@@ -201,10 +203,12 @@ export default function CarSelector() {
                 className='flex items-center gap-5 px-5'
                 onClick={() => handleNavigate(index)}
               >
-                <div className='size-[48px] border-2 border-black rounded-lg flex items-center justify-center '>
-                  <ChevronRight
+                <div className='flex items-center justify-center'>
+                  <Image
+                    src={RightIcon}
+                    alt='Select'
                     className={cn(
-                      'size-10 text-black',
+                      'w-12 h-12',
                       locale === 'ar' && 'transform rotate-180'
                     )}
                   />

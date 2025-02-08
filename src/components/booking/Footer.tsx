@@ -153,17 +153,16 @@ export function Footer() {
               <span className='font-semibold'>{totalPrice}</span> {t('SAR')}
             </span>
           ) : null}
-          {selectedServices.length > 0 ? (
-            <div className='relative'>
-              <div className='bg-red-700 absolute h-5 w-5 -right-2 -top-3 rounded-full flex items-center justify-center'>
-                <span className='ext-sm font-medium'>
-                  {selectedServices.length}
-                </span>
-              </div>
 
-              <ShoppingCart color='black' size={30} />
+          <div className='relative'>
+            <div className='bg-red-500 absolute h-5 w-5 -right-1 -top-3 rounded-full flex items-center justify-center'>
+              <span className='ext-sm font-medium'>
+                {selectedServices.length}
+              </span>
             </div>
-          ) : null}
+
+            <ShoppingCart color='black' size={30} />
+          </div>
 
           {/* Only show confirm button when all required data is present */}
           {selectedServices &&
