@@ -55,10 +55,8 @@ export function Footer() {
         serviceType: serviceType,
         paymentDetails: paymentDetails,
       });
-      console.log(response);
       toast.success(t('Booking created successfully'));
     } catch (error) {
-      console.log(error);
       toast.error(t('Booking failed! Something went wrong!'));
     }
   };
