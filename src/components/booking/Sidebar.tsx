@@ -1,20 +1,19 @@
-'use client'
+'use client';
 
-import { useState } from 'react'
-import { ChevronDown, Menu, X } from 'lucide-react'
-import { cn } from '@/libs/utils'
-import { useTranslations } from 'next-intl'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '../UI/Dropdown'
-import { usePathname, useRouter } from 'next/navigation'
+import { useState } from 'react';
+import { Menu, X } from 'lucide-react';
+import { cn } from '@/libs/utils';
+import { useTranslations } from 'next-intl';
+import { usePathname, useRouter } from 'next/navigation';
 
 export function NavMenu() {
   const router = useRouter();
   const pathname = usePathname();
-  const t = useTranslations()
-  const [isOpen, setIsOpen] = useState(false)
-  const [selectedLang, setSelectedLang] = useState(pathname?.split('/')?.[1])
+  const t = useTranslations();
+  const [isOpen, setIsOpen] = useState(false);
+  const [selectedLang, setSelectedLang] = useState(pathname?.split('/')?.[1]);
 
-  const menuItems = ['HOME', 'SERVICES', 'ABOUT US', 'CONTACT']
+  const menuItems = ['HOME', 'SERVICES', 'ABOUT US', 'CONTACT'];
 
   const handleLanguageChange = (locale: string) => {
     setSelectedLang(locale);
@@ -31,70 +30,69 @@ export function NavMenu() {
     const newPath = `/${segments.join('/')}`;
     router.push(newPath);
     setTimeout(() => {
-      window.location.reload()
-    }, 1000)
+      window.location.reload();
+    }, 1000);
   };
+
+  const toggleLanguage = () => {
+    const newLocale = selectedLang === 'en' ? 'ar' : 'en';
+    handleLanguageChange(newLocale);
+  };
+
   return (
     <>
       <button
         onClick={() => setIsOpen(true)}
-        className="p-2"
-        aria-label="Open menu"
+        className='p-2'
+        aria-label='Open menu'
       >
-        <Menu className="h-6 w-6" />
+        <Menu className='h-6 w-6' />
       </button>
 
       {/* Mobile Menu Overlay */}
       <div
         className={cn(
-          "fixed inset-0 bg-black/95 z-50 transition-opacity duration-300 lg:w-[25%]",
-          isOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+          'fixed inset-0 bg-black/95 z-50 transition-opacity duration-300 lg:w-[25%]',
+          isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         )}
       >
-        <div className="p-4 flex justify-end">
+        <div className='p-4 flex justify-end'>
           <button
             onClick={() => setIsOpen(false)}
-            className="p-2"
-            aria-label="Close menu"
+            className='p-2'
+            aria-label='Close menu'
           >
-            <X className="h-6 w-6 text-white" />
+            <X className='h-6 w-6 text-white' />
           </button>
         </div>
-        <nav className="flex flex-col items-start lg:items-center p-8 space-y-6">
+        <nav className='flex flex-col items-start lg:items-center p-8 space-y-6'>
           {menuItems.map((item) => (
             <a
               key={item}
-              href="#"
-              className="text-white text-sm hover:text-gray-300 transition-colors"
+              href='#'
+              className='text-white text-sm hover:text-gray-300 transition-colors'
             >
               {t(item)}
             </a>
           ))}
-        <DropdownMenu>
-          <DropdownMenuTrigger className="flex items-center gap-1 text-sm hover:text-gray-300 transition-colors">
-            {selectedLang}
-            <ChevronDown className="h-4 w-4" />
-          </DropdownMenuTrigger>
-          <DropdownMenuContent
-            className="w-40 bg-zinc-900 border-zinc-800"
+
+          <button
+            onClick={toggleLanguage}
+            className='flex items-center gap-2 text-white hover:opacity-80 transition-opacity'
+            aria-label={`Switch to ${
+              selectedLang === 'en' ? 'Arabic' : 'English'
+            }`}
           >
-            <DropdownMenuItem
-              onClick={() => handleLanguageChange('en')}
-              className="text-sm text-white hover:bg-zinc-800 focus:bg-zinc-800 cursor-pointer"
-            >
-              en
-            </DropdownMenuItem>
-            <DropdownMenuItem
-              onClick={() => handleLanguageChange('ar')}
-              className="text-sm text-white hover:bg-zinc-800 focus:bg-zinc-800 cursor-pointer"
-            >
-              ar
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+            <img
+              src={`https://flagsapi.com/${
+                selectedLang === 'en' ? 'GB' : 'SA'
+              }/flat/64.png`}
+              alt={selectedLang === 'en' ? 'English' : 'Arabic'}
+              className='w-10 h-10 rounded-full object-cover'
+            />
+          </button>
         </nav>
       </div>
     </>
-  )
+  );
 }
-
