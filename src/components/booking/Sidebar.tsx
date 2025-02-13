@@ -5,6 +5,7 @@ import { Menu, X } from 'lucide-react';
 import { cn } from '@/libs/utils';
 import { useTranslations } from 'next-intl';
 import { usePathname, useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export function NavMenu() {
   const router = useRouter();
@@ -56,7 +57,10 @@ export function NavMenu() {
           isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'
         )}
       >
-        <div className='p-4 flex justify-end'>
+        <div className='p-4 flex flex-row justify-between items-center'>
+          <Link href='/' className='font-bold text-lg cursor-pointer'>
+            CUSTOM
+          </Link>
           <button
             onClick={() => setIsOpen(false)}
             className='p-2'

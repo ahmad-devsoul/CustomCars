@@ -70,28 +70,39 @@ export function ServiceCard({
           )}
         </button>
       </div>
-      <div className='bg-zinc-900 rounded-lg p-4 flex flex-wrap items-center justify-between'>
-        <div className=' gap-1'>
+      <div className='bg-zinc-900 rounded-lg p-4 flex flex-col md:flex-row flex-wrap items-start md:items-center justify-between min-h-[120px]'>
+        <div className='flex flex-row md:flex-col justify-start items-center gap-1'>
           <div className='text-white text-lg md:text-xl font-bold'>
             {priceAfter.toLocaleString()}{' '}
             <span className='text-white text-xs md:text-sm'>{t('SAR')}</span>
           </div>
-
           <div className='text-white font-semibold text-sm ml-2 relative'>
             {priceBefore.toLocaleString()}{' '}
             <span className='text-xs'>{t('SAR')}</span>
             <div className='border-t-2 border-[#FF3B30] absolute top-[10px] -left-1 w-[95%]'></div>
           </div>
         </div>
-        <div className='flex items-center gap-1'>
+        <div className='flex items-center gap-5 md:gap-2'>
           <span className='text-xs text-white whitespace-nowrap'>
             {t('Pay with')}
           </span>
-          <div className='relative w-10 h-10 md:w-16 md:h-16'>
-            <Image src={Tabby} alt='Tabby' fill className='object-contain' />
-          </div>
-          <div className='relative w-[60px] h-[60px] md:w-[100px] md:h-[100px]'>
-            <Image src={Tamara} alt='Tamara' fill className='object-contain' />
+          <div className='flex flex-row items-center gap-5 md:gap-2'>
+            <Image
+              src={Tabby}
+              alt='Tabby'
+              width={70}
+              height={30}
+              unoptimized
+              priority
+            />
+            <Image
+              src={Tamara}
+              alt='Tamara'
+              width={70}
+              height={30}
+              unoptimized
+              priority
+            />
           </div>
         </div>
       </div>

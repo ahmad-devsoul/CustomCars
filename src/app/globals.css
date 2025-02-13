@@ -48,39 +48,37 @@ body {
   width: 100%;
 }
 
-.dayPicker .rdp-weekday{
+.dayPicker .rdp-weekday {
   font-size: 18px;
   font-weight: 600;
   color: black;
 }
 
-.rdp-outside{
+.rdp-outside {
   opacity: 0.5;
 }
 
-.dayPicker .rdp-months{
+.dayPicker .rdp-months {
   width: 100%;
   max-width: inherit;
 }
 
-.dayPicker .rdp-month{
+.dayPicker .rdp-month {
   width: 100%;
 }
 
-
-
-.dayPicker .rdp-day{
+.dayPicker .rdp-day {
   height: 60px;
   color: black;
 }
 
-.dayPicker .rdp-month_caption{
+.dayPicker .rdp-month_caption {
   display: none;
 }
 
-.rdp-selected .rdp-day_button{
+.rdp-selected .rdp-day_button {
   border: none !important;
-  background: rgba(136, 136, 136, 0.10);
+  background: rgba(136, 136, 136, 0.1);
   padding: 5px 10px;
   border-radius: 5px;
   color: black;
@@ -112,10 +110,9 @@ body {
 
 .carousel .control-dots .dot {
   display: none !important;
- 
 }
 
-.carousel-status{
+.carousel-status {
   display: none !important;
 }
 .clip-polygon-full {
@@ -128,13 +125,21 @@ body {
   padding-left: 10px; /* Default for smaller screens */
 }
 
-@media (min-width: 1024px) { /* lg screens (1024px and above) */
+@media (min-width: 1024px) {
+  /* lg screens (1024px and above) */
   .dayPicker .rdp-weekday {
     padding-left: 100px;
   }
 }
 
-
 /* .rdp-day{
   color: black;
 } */
+
+.rdp-selected .rdp-day_button {
+  background: black;
+  color: #000;
+  border: none !important;
+  color: white;
+  border-radius: 100%;
+}

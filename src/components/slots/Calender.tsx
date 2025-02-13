@@ -42,27 +42,29 @@ export function Calendar() {
   return (
     <div className='p-3 lg:p-6 w-full rounded-tl-lg rounded-tr-lg lg:rounded-tl-lg lg:rounded-bl-lg'>
       <div className='flex items-center justify-between mb-4 w-full'>
-        <h2 className='text-[15px] text-gray-900 flex flex-col sm:flex-row items-start sm:items-center'>
-          <span className='font-semibold text-black500 text-xl'>
-            {selectedMonthYear.toLocaleDateString('en-US', {
-              month: 'long',
-              year: 'numeric',
-            })}
-          </span>
-          <span
-            dir={locale === 'ar' ? 'rtl' : 'ltr'}
-            className={cn(
-              'text-black500 text-sm font-semibold hidden sm:block',
-              locale === 'ar' ? 'mr-2' : 'ml-2'
-            )}
-          >
-            {new Date(slot.date).toLocaleDateString('en-US', {
-              weekday: 'short',
-              day: 'numeric',
-              month: 'long',
-            })}
-          </span>
-        </h2>
+        <div className='w-full flex items-center justify-between sm:justify-start gap-4'>
+          <h2 className='text-[15px] text-gray-900 flex-1 flex flex-col sm:flex-row items-center sm:items-start'>
+            <span className='font-semibold text-black500 text-xl text-center'>
+              {selectedMonthYear.toLocaleDateString(locale, {
+                month: 'long',
+                year: 'numeric',
+              })}
+            </span>
+            {/* <span
+              dir={locale === 'ar' ? 'rtl' : 'ltr'}
+              className={cn(
+                'text-black500 text-sm font-semibold hidden sm:block',
+                locale === 'ar' ? 'mr-2' : 'ml-2'
+              )}
+            >
+              {new Date(slot.date).toLocaleDateString(locale, {
+                weekday: 'short',
+                day: 'numeric',
+                month: 'long',
+              })}
+            </span> */}
+          </h2>
+        </div>
       </div>
 
       <div dir='rtl' className='relative dayPicker'>
@@ -77,14 +79,17 @@ export function Calendar() {
           locale={locale === 'ar' ? ar : undefined}
           classNames={{
             caption_label: 'hidden',
-            nav: `space-x-1 flex items-center gap-3 absolute -top-10 ${
-              locale === 'ar' ? 'left-0 flex flex-row-reverse' : 'right-0'
+            nav: `space-x-1 flex items-center gap-3 absolute -top-10 w-full sm:w-auto justify-between sm:justify-end ${
+              locale === 'ar' ? 'sm:left-0' : 'sm:right-0'
             }`,
+            nav_button: 'flex items-center justify-center',
+            day_selected:
+              'bg-black text-white rounded-full hover:bg-black hover:text-white',
           }}
           components={{
             PreviousMonthButton: () => (
               <button onClick={handleNextMonth}>
-                <ChevronRight className='w-6 h-6 font-semibold text-[#888888] border border-gray100 rounded-full mr-3' />
+                <ChevronRight className='w-6 h-6 font-semibold text-[#888888] border border-gray100 rounded-full sm:mr-3' />
               </button>
             ),
             NextMonthButton: () => (

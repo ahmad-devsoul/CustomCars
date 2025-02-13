@@ -13,7 +13,7 @@ import { cn } from '@/libs/utils';
 import { useSelector } from 'react-redux';
 import { RootState } from '@/store';
 import { services } from '@/libs/utils/constants';
-import { useMemo } from 'react';
+import { useMemo, useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useCreateBookingMutation } from '@/store/services/branches';
 import { toast } from 'react-toastify';
@@ -37,6 +37,48 @@ export function Footer() {
   const { scrollToSection } = useScroll();
   const { selectedServices, slot, carType, serviceType, paymentDetails } =
     useSelector((state: RootState) => state.booking);
+  const [activeSection, setActiveSection] = useState<
+    'booking' | 'slot' | 'payment'
+  >('booking');
+
+  // Update useEffect to handle scroll position
+  useEffect(() => {
+    const handleScroll = () => {
+      const bookingSection = document.getElementById('booking');
+      const slotSection = document.getElementById('slot');
+      const paymentSection = document.getElementById('payment');
+
+      if (!bookingSection || !slotSection || !paymentSection) return;
+
+      const scrollPosition = window.scrollY + window.innerHeight / 2;
+
+      const sections = [
+        { id: 'booking', element: bookingSection },
+        { id: 'slot', element: slotSection },
+        { id: 'payment', element: paymentSection },
+      ];
+
+      for (const section of sections) {
+        const rect = section.element.getBoundingClientRect();
+        const offsetTop = section.element.offsetTop;
+        const height = section.element.offsetHeight;
+
+        if (
+          scrollPosition >= offsetTop &&
+          scrollPosition < offsetTop + height
+        ) {
+          setActiveSection(section.id as 'booking' | 'slot' | 'payment');
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    // Initial check
+    handleScroll();
+
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleNext = () => {
     handleCreateBooking();
@@ -72,13 +114,20 @@ export function Footer() {
   }, [selectedServices]);
 
   const handleSectionClick = (section: 'booking' | 'slot' | 'payment') => {
-    scrollToSection(section);
+    const element = document.getElementById(section);
+    if (element) {
+      const offset = element.offsetTop - 100; // Adjust offset as needed
+      window.scrollTo({
+        top: offset,
+        behavior: 'smooth',
+      });
+    }
   };
 
   return (
     <div
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
-      className='fixed bottom-0 left-0 right-0 z-10 bg-white border-t border-gray-200'
+      className='fixed bottom-0 left-0 right-0 z-10 bg-white border-t border-gray-200 px-2'
     >
       <div className='container mx-auto px-2 lg:px-4 py-4 flex justify-between items-center'>
         <div className='flex items-center'>
@@ -95,15 +144,16 @@ export function Footer() {
             <div
               onClick={() => handleSectionClick('booking')}
               className={cn(
-                'border border-white rounded-full p-1.5 cursor-pointer',
-                pathname.includes('/booking') && 'border-black text-black',
-                pathname.includes('/booking/') && 'bg-black'
+                'border rounded-full p-1.5 cursor-pointer transition-all duration-200',
+                activeSection === 'booking'
+                  ? 'border-black bg-black'
+                  : 'border-white'
               )}
             >
               <Bolt
                 className={cn(
                   'w-[14px] h-[14px]',
-                  pathname.includes('/booking/') && 'text-white'
+                  activeSection === 'booking' ? 'text-white' : 'text-gray-400'
                 )}
               />
             </div>
@@ -111,34 +161,33 @@ export function Footer() {
             <div
               onClick={() => handleSectionClick('slot')}
               className={cn(
-                'border rounded-full p-1.5 cursor-pointer',
-                pathname.includes('/booking/slot') && 'border-black',
-                pathname.includes('/booking/payment') && 'bg-black'
+                'border rounded-full p-1.5 cursor-pointer transition-all duration-200',
+                activeSection === 'slot'
+                  ? 'border-black bg-black'
+                  : 'border-white'
               )}
             >
               <CalendarDays
                 className={cn(
                   'w-[14px] h-[14px]',
-                  pathname.includes('/booking/slot') && 'text-black',
-                  pathname.includes('/booking') &&
-                    !pathname.includes('/booking/slot') &&
-                    'text-gray100',
-                  pathname.includes('/booking/payment') && 'text-white'
+                  activeSection === 'slot' ? 'text-white' : 'text-gray-400'
                 )}
               />
             </div>
             <div className='border-t border-gray100 w-3 lg:w-5' />
             <div
-              className={cn(
-                'border rounded-full p-1.5 cursor-pointer',
-                pathname.includes('/booking/payment') && 'border-black'
-              )}
               onClick={() => handleSectionClick('payment')}
+              className={cn(
+                'border rounded-full p-1.5 cursor-pointer transition-all duration-200',
+                activeSection === 'payment'
+                  ? 'border-black bg-black'
+                  : 'border-white'
+              )}
             >
               <CreditCard
                 className={cn(
-                  'w-[14px] h-[14px] text-gray100',
-                  pathname.includes('/booking/payment') && 'text-black'
+                  'w-[14px] h-[14px]',
+                  activeSection === 'payment' ? 'text-white' : 'text-gray-400'
                 )}
               />
             </div>
@@ -153,7 +202,7 @@ export function Footer() {
           ) : null}
 
           <div className='relative'>
-            <div className='bg-red-500 absolute h-5 w-5 -right-1 -top-3 rounded-full flex items-center justify-center'>
+            <div className='bg-black text-white absolute h-5 w-5 -right-1 -top-3 rounded-full flex items-center justify-center'>
               <span className='ext-sm font-medium'>
                 {selectedServices.length}
               </span>

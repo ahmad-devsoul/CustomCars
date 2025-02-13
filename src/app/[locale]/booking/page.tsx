@@ -18,6 +18,8 @@ import { OrderSummary } from '@/components/slots/OrderSummary';
 import { Input } from '@/components/UI/Input';
 import { cn } from '@/libs/utils';
 import { setPaymentDetails } from '@/store/slices/booking';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function Home() {
   const mobileServicesRef = useRef<HTMLDivElement>(null);
@@ -30,6 +32,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const t = useTranslations();
   const locale = useLocale();
+  const router = useRouter();
 
   const servicesData = useMemo(() => {
     return services.filter(
@@ -96,7 +99,9 @@ export default function Home() {
                 className='container mx-auto flex justify-between items-center'
               >
                 <div className='flex items-center gap-7'>
-                  <span className='font-bold text-lg'>CUSTOM</span>
+                  <Link href='/' className='font-bold text-lg cursor-pointer'>
+                    CUSTOM
+                  </Link>
                   <div className='flex gap-3'>
                     <VehicleSelector />
                   </div>
@@ -178,7 +183,7 @@ export default function Home() {
         <h1 className='px-1 py-3 lg:py-5 font-semibold text-2xl text-black'>
           {t('Select Date and Time')}
         </h1>
-        <div className='flex flex-col lg:flex-row w-full bg-white rounded-lg'>
+        <div className='flex flex-col lg:flex-row w-full rounded-lg bg-white py-5 md:py-0'>
           <Calendar />
           <TimeSlots />
         </div>

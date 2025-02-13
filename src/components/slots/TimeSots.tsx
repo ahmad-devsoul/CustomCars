@@ -41,7 +41,7 @@ export function TimeSlots() {
                   className={cn(
                     'py-2.5 px-4 text-sm rounded-lg border transition-colors min-w-[100px]',
                     slot?.time === time
-                      ? 'border-blue-600 bg-blue-50 text-blue-600'
+                      ? 'border-black bg-black text-white'
                       : 'border-gray-200 hover:border-gray-300 text-gray-700'
                   )}
                 >
