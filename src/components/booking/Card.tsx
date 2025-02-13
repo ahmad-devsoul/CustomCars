@@ -6,6 +6,7 @@ import { setSelectedServices } from '@/store/slices/booking';
 import { useLocale, useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useDispatch, useSelector } from 'react-redux';
+import { useRef, useEffect } from 'react';
 
 interface ServiceCardProps {
   id: number;
@@ -13,7 +14,10 @@ interface ServiceCardProps {
   priceAfter: number;
   priceBefore: number;
   selectedService?: number;
-  setSelectedService?: React.Dispatch<React.SetStateAction<number>>;
+  setSelectedService?: (id: number) => void;
+  onClick?: () => void;
+  onVisible?: (id: number) => void;
+  className?: string;
 }
 
 export function ServiceCard({
@@ -23,11 +27,33 @@ export function ServiceCard({
   priceBefore,
   selectedService,
   setSelectedService,
+  onClick,
+  onVisible,
+  className,
 }: ServiceCardProps) {
   const locale = useLocale();
   const t = useTranslations();
   const { selectedServices } = useSelector((state: RootState) => state.booking);
   const dispatch = useDispatch();
+  const cardRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting && entry.intersectionRatio > 0.7) {
+          onVisible?.(id);
+        }
+      },
+      { threshold: 0.7 }
+    );
+
+    if (cardRef.current) {
+      observer.observe(cardRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, [id, onVisible]);
+
   const handleSelectCard = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     if (selectedServices.includes(id || 0)) {
@@ -40,12 +66,18 @@ export function ServiceCard({
   };
   return (
     <div
+      ref={cardRef}
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
       className={cn(
         'bg-white rounded-lg px-2 lg:px-6 py-6 md:py-4 space-y-4 border-4 border-white transition-all cursor-pointer my-7 min-w-[80vw] lg:min-w-min',
-        selectedService === id && 'border-black'
+        selectedService === id && 'border-black',
+        className
       )}
-      onClick={() => setSelectedService?.(id || 0)}
+      onClick={(e) => {
+        e.stopPropagation();
+        onClick?.();
+        setSelectedService?.(id || 0);
+      }}
     >
       <div className='flex justify-between items-center'>
         <h3 className='font-bold text-black'>{t(serviceName)}</h3>
