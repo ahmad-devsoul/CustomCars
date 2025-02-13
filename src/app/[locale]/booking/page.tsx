@@ -3,7 +3,7 @@ import { ServiceCard } from '@/components/booking/Card';
 import { NavMenu } from '@/components/booking/Sidebar';
 import { VehicleSelector } from '@/components/booking/VehicleSelector';
 import Image from 'next/image';
-import { useEffect, useMemo, useState, useRef } from 'react';
+import { useEffect, useMemo, useState, useRef, useCallback } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { useSelector } from 'react-redux';
 import { Calendar } from '@/components/slots/Calender';
@@ -20,6 +20,7 @@ import { cn } from '@/libs/utils';
 import { setPaymentDetails } from '@/store/slices/booking';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { Car as DefaultCarImage } from '@/assets';
 
 export default function Home() {
   const mobileServicesRef = useRef<HTMLDivElement>(null);
@@ -86,6 +87,21 @@ export default function Home() {
     dispatch(setPaymentDetails({ ...paymentDetails, [name]: e.target.value }));
   };
 
+  // Find the selected service object
+  const selectedServiceData = useMemo(() => {
+    return servicesData.find((service) => service.id === selectedService);
+  }, [servicesData, selectedService]);
+
+  // Add handler for mobile card selection
+  const handleMobileCardSelect = (serviceId: number) => {
+    setSelectedService(serviceId);
+  };
+
+  // Add this function to handle card visibility
+  const handleCardInView = useCallback((serviceId: number) => {
+    setSelectedService(serviceId);
+  }, []);
+
   return (
     <div className='size-full flex flex-col justify-start items-center w-full h-full overflow-y-scroll'>
       {/* Main Content */}
@@ -110,15 +126,21 @@ export default function Home() {
               </div>
             </header>
             <div className='relative overflow-hidden lg:w-[95%] h-[200px] md:h-[400px] lg:h-auto lg:min-h-[600px] mb-3 lg:mb-0 flex justify-center items-center'>
-              <Image
-                src={
-                  services?.find((item) => item.id === selectedService)?.gif ||
-                  ''
-                }
-                alt='Car'
-                fill
-                className='object-contain rounded-lg'
-              />
+              {selectedServiceData?.gif ? (
+                <Image
+                  src={selectedServiceData.gif}
+                  alt={selectedServiceData?.serviceName || 'Car Service'}
+                  fill
+                  className='object-contain rounded-lg'
+                />
+              ) : (
+                <Image
+                  src={DefaultCarImage}
+                  alt='Default Car'
+                  fill
+                  className='object-contain rounded-lg'
+                />
+              )}
             </div>
           </div>
 
@@ -151,8 +173,8 @@ export default function Home() {
             </div>
 
             {/* Service Cards */}
-            <div className='hidden lg:block overflow-y-auto no-scrollbar lg:h-[calc(100vh-170px)] space-y-2 mb-16'>
-              <div className='flex-1 gap-2 space-y-2'>
+            <div className='hidden lg:block overflow-y-auto no-scrollbar lg:h-[calc(100vh-170px)] space-y-6 mb-16'>
+              <div className='flex-1 gap-6 space-y-6'>
                 {servicesData.map((service) => (
                   <ServiceCard
                     key={service.id}
@@ -166,10 +188,17 @@ export default function Home() {
             <div
               ref={mobileServicesRef}
               dir={locale === 'ar' ? 'rtl' : 'ltr'}
-              className='flex flex-row gap-4 overflow-x-auto no-scrollbar lg:hidden'
+              className='flex flex-row gap-4 overflow-x-auto no-scrollbar lg:hidden snap-x snap-mandatory'
             >
               {servicesData.map((service) => (
-                <ServiceCard key={service.id} {...service} />
+                <ServiceCard
+                  key={service.id}
+                  {...service}
+                  selectedService={selectedService}
+                  setSelectedService={handleMobileCardSelect}
+                  onVisible={handleCardInView}
+                  className='snap-center'
+                />
               ))}
             </div>
           </div>

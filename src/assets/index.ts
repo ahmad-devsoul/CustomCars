@@ -8,33 +8,49 @@ import CheckedIcon from './icons/checked.svg';
 import SedanImg from './images/sedan.png';
 import SUVImg from './images/suv.png';
 import bgShadow from './images/bgShade.png';
-import gif1 from './gifs/ID 1.gif';
-import gif2 from './gifs/ID 2.gif';
-import gif3 from './gifs/ID 3.gif';
-import gif4 from './gifs/ID 4.gif';
-import gif5 from './gifs/ID 5.gif';
-import gif6 from './gifs/ID 6.gif';
-import gif7 from './gifs/ID 7.gif';
-import gif8 from './gifs/ID 8.gif';
-import gif9 from './gifs/ID 9.gif';
-import gif10 from './gifs/ID 10.gif';
-import gif11 from './gifs/ID 11.gif';
-import gif12 from './gifs/ID 12.gif';
-import gif13 from './gifs/ID 13.gif';
-import gif14 from './gifs/ID 14.gif';
-import gif15 from './gifs/ID 15.gif';
-import gif16 from './gifs/ID 16.gif';
-import gif17 from './gifs/ID 17.gif';
-import gif18 from './gifs/ID 18.gif';
-import gif19 from './gifs/ID 18.gif';
-import gif20 from './gifs/ID 18.gif';
-import gif21 from './gifs/ID 18.gif';
-import gif22 from './gifs/ID 18.gif';
-import gif23 from './gifs/ID 18.gif';
 import RightIcon from './icons/RightIcon.svg';
 import LeftIcon from './icons/LeftIcon.svg';
 
+// Sedan Protection Film GIFs
+import protectionFilmSedanHalfFront from './gifs/sedan/Paint Protection Film (Half front).gif';
+import protectionFilmSedanFullFront from './gifs/sedan/Paint Protection Film (Full front).gif';
+import protectionFilmSedanBrightBody from './gifs/sedan/Paint Protection Film (Full Body).gif';
+import protectionFilmSedanMatBody from './gifs/sedan/Paint Protection Film (MATT Full Body).gif';
+
+// Sedan Window Film GIFs
+import windowFilmSedanThermal from './gifs/sedan/Thermal Tint.gif';
+import windowFilmSedanWindshield from './gifs/sedan/Windshield Protection.gif';
+
+// Sedan Polishing GIFs
+import polishingSedanFull from './gifs/sedan/Full Polishing.gif';
+import polishingSedanExterior from './gifs/sedan/Exterior Polish.gif';
+
+// Sedan Nano Ceramic GIFs
+import nanoCeramicSedanFull from './gifs/sedan/Full Nano Cermaic.gif';
+import nanoCeramicSedanExterior from './gifs/sedan/Exterior Nano Cermaic.gif';
+import nanoCeramicSedanInterior from './gifs/sedan/Interior Nano Ceramic.gif';
+
+// SUV Protection Film GIFs
+import protectionFilmSUVHalfFront from './gifs/suv/Paint Protection Film (Half front).gif';
+import protectionFilmSUVFullFront from './gifs/suv/Paint Protection Film (Full front).gif';
+import protectionFilmSUVBrightBody from './gifs/suv/Paint Protection Film (Full Body).gif';
+import protectionFilmSUVMatBody from './gifs/suv/Paint Protection Film (MATT Full Body).gif';
+
+// SUV Window Film GIFs
+import windowFilmSUVThermal from './gifs/suv/Thermal Tint.gif';
+import windowFilmSUVWindshield from './gifs/suv/Windshield Protection.gif';
+
+// SUV Polishing GIFs
+import polishingSUVFull from './gifs/suv/Full Polishing.gif';
+import polishingSUVExterior from './gifs/suv/Exterior Polish.gif';
+
+// SUV Nano Ceramic GIFs
+import nanoCeramicSUVFull from './gifs/suv/Full Nano Cermaic.gif';
+import nanoCeramicSUVExterior from './gifs/suv/Exterior Nano Cermaic.gif';
+import nanoCeramicSUVInterior from './gifs/suv/Interior Nano Ceramic.gif';
+
 export {
+  // General assets
   Car,
   Tabby,
   Tamara,
@@ -45,29 +61,44 @@ export {
   SedanImg,
   SUVImg,
   bgShadow,
-  gif1,
-  gif2,
-  gif3,
-  gif4,
-  gif5,
-  gif6,
-  gif7,
-  gif8,
-  gif9,
-  gif10,
-  gif11,
-  gif12,
-  gif13,
-  gif14,
-  gif15,
-  gif16,
-  gif17,
-  gif18,
-  gif19,
-  gif20,
-  gif21,
-  gif22,
-  gif23,
   RightIcon,
   LeftIcon,
+
+  // Sedan Protection Films
+  protectionFilmSedanHalfFront,
+  protectionFilmSedanFullFront,
+  protectionFilmSedanBrightBody,
+  protectionFilmSedanMatBody,
+
+  // Sedan Window Films
+  windowFilmSedanThermal,
+  windowFilmSedanWindshield,
+
+  // Sedan Polishing
+  polishingSedanFull,
+  polishingSedanExterior,
+
+  // Sedan Nano Ceramic
+  nanoCeramicSedanFull,
+  nanoCeramicSedanExterior,
+  nanoCeramicSedanInterior,
+
+  // SUV Protection Films
+  protectionFilmSUVHalfFront,
+  protectionFilmSUVFullFront,
+  protectionFilmSUVBrightBody,
+  protectionFilmSUVMatBody,
+
+  // SUV Window Films
+  windowFilmSUVThermal,
+  windowFilmSUVWindshield,
+
+  // SUV Polishing
+  polishingSUVFull,
+  polishingSUVExterior,
+
+  // SUV Nano Ceramic
+  nanoCeramicSUVFull,
+  nanoCeramicSUVExterior,
+  nanoCeramicSUVInterior,
 };
