@@ -35,7 +35,7 @@ export default function Payment() {
         >
           {/* Credit/Debit Card Option */}
           <div
-            className='flex items-center space-x-2 border rounded-lg p-4 bg-white'
+            className='flex items-start space-x-2 border rounded-lg p-4 bg-white'
             onClick={() => handleChange('card')}
           >
             <RadioGroupItem
