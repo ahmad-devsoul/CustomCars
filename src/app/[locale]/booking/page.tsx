@@ -159,7 +159,7 @@ export default function Home() {
               ].map((tab) => (
                 <button
                   key={tab}
-                  className={`px-4 py-2 text-sm hover:bg-[rgba(104,104,104,0.50)] capitalize text-white hover:text-white rounded-lg transition-all 
+                  className={`px-4 py-2 text-sm capitalize text-white hover:text-white hover:bg-transparent rounded-lg transition-all 
                     ${
                       tab === serviceType
                         ? 'text-white font-semibold bg-[rgba(104,104,104,0.50)] px-5'
